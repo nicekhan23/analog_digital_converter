@@ -209,7 +209,7 @@ BaseType_t adc_init() {
 
 
 // adc [-h|--help]  
-#define CMD_AD "adc"
+#define CMD_ADC "adc"
 
 struct {
 	struct arg_lit *help;
@@ -245,7 +245,7 @@ static void print_status() {
 	print_current();
 }
 
-static int cmd_ad(int argc, char **argv) {
+static int cmd_adc(int argc, char **argv) {
 	int errors=arg_parse(argc, argv, (void *)&args);
 	if (errors||args.help->count>0) {
 		print_help();
@@ -258,15 +258,15 @@ static int cmd_ad(int argc, char **argv) {
 }
 
 static void register_cmd() {
-	args.help=arg_litn("h", "help", 0, 1, "A/D converter help");
-
-	args.end=arg_end(0);
-
-	esp_console_cmd_t cmd={
-		.argtable=&args,
-		.command=CMD_AD,
-		.func=cmd_ad,
-		.help="A/D commands"
+	args.help = arg_litn("h", "help", 0, 1, "A/D converter help");
+	args.channel = arg_int0("c", "channel", "<channel>", "ADC channel number (0-based)");
+	args.end = arg_end(2);
+	
+	esp_console_cmd_t cmd = {
+		.argtable = &args,
+		.command = CMD_ADC,
+		.func = cmd_adc,
+		.help = "A/D commands"
 	};
 
 	esp_console_cmd_register(&cmd);
