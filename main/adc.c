@@ -55,8 +55,8 @@ typedef struct
     uint8_t ptr;
 } r_avg_t;
 
-static const char* TAG = "AD";
-static TaskHandle_t tsk_handle;
+static const char* TAG = "ADC";
+static TaskHandle_t task_handle;
 static adc_continuous_handle_t handle = NULL;
 
 static struct {
@@ -79,7 +79,7 @@ static bool IRAM_ATTR s_conv_done_cb(adc_continuous_handle_t handle, const adc_c
 {
     BaseType_t mustYield = pdFALSE;
     //Notify that ADC continuous driver has done enough number of conversions
-    vTaskNotifyGiveFromISR(tsk_handle, &mustYield);
+    vTaskNotifyGiveFromISR(task_handle, &mustYield);
 
     return (mustYield == pdTRUE);
 }
@@ -151,8 +151,8 @@ static uint32_t running_average(uint32_t input)
     return (sum / RUNNING_AVG_SIZE);
 }
 
-static void tsk_ad(void *p){
-	ESP_LOGD(TAG, "Enter tsk_ad");
+static void task_adc(void *p){
+	ESP_LOGD(TAG, "Enter task_adc");
     ESP_ERROR_CHECK(adc_continuous_start(handle));
 
 
@@ -185,9 +185,9 @@ static void tsk_ad(void *p){
 }
 
 
-BaseType_t ad_init() {
+BaseType_t adc_init() {
     esp_log_level_set(TAG,LOG_LEVEL_LOCAL); 
-	ESP_LOGD(TAG, "Enter ad_init");
+	ESP_LOGD(TAG, "Enter adc_init");
     continuous_adc_init(channel, ADC_CHANNELS, &handle);
 
     bzero(&errors, sizeof(errors));
@@ -203,17 +203,17 @@ BaseType_t ad_init() {
     };
     ESP_ERROR_CHECK(adc_continuous_register_event_callbacks(handle, &cbs, NULL));
 	register_cmd();
-    BaseType_t res = xTaskCreate(tsk_ad, "ad", 4096, NULL, uxTaskPriorityGet(NULL), &tsk_handle);
+    BaseType_t res = xTaskCreate(task_adc, "adc", 4096, NULL, uxTaskPriorityGet(NULL), &task_handle);
     return res;
 }
 
 
-// ad [-h|--help]  
-#define CMD_AD "ad"
+// adc [-h|--help]  
+#define CMD_AD "adc"
 
 struct {
 	struct arg_lit *help;
-    struct arg_i                    // press ctrl+space after i expected result is arg_int
+    struct arg_i   *channel                 // press ctrl+space after i expected result is arg_int
 	struct arg_end *end;
 } args;
 
