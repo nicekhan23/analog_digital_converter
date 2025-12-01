@@ -1,0 +1,125 @@
+menu "ADC Multi-Channel Configuration"
+
+    config ADC_MAX_CHANNELS
+        int "Maximum number of ADC channels"
+        range 2 6
+        default 4
+        help
+            Define the maximum number of ADC channels to be used.
+            Valid range is 2 to 6 channels.
+
+    menu "Channel 0 Configuration"
+        config ADC_CH0_MIN
+            int "Channel 0 minimum value"
+            range 0 4095
+            default 0
+            help
+                Minimum ADC value for channel 0 (0-4095)
+
+        config ADC_CH0_MAX
+            int "Channel 0 maximum value"
+            range 0 4095
+            default 4095
+            help
+                Maximum ADC value for channel 0 (0-4095)
+    endmenu
+
+    menu "Channel 1 Configuration"
+        config ADC_CH1_MIN
+            int "Channel 1 minimum value"
+            range 0 4095
+            default 0
+            help
+                Minimum ADC value for channel 1 (0-4095)
+
+        config ADC_CH1_MAX
+            int "Channel 1 maximum value"
+            range 0 4095
+            default 4095
+            help
+                Maximum ADC value for channel 1 (0-4095)
+    endmenu
+
+    menu "Channel 2 Configuration"
+        depends on ADC_MAX_CHANNELS >= 3
+        config ADC_CH2_MIN
+            int "Channel 2 minimum value"
+            range 0 4095
+            default 0
+            help
+                Minimum ADC value for channel 2 (0-4095)
+
+        config ADC_CH2_MAX
+            int "Channel 2 maximum value"
+            range 0 4095
+            default 4095
+            help
+                Maximum ADC value for channel 2 (0-4095)
+    endmenu
+
+    menu "Channel 3 Configuration"
+        depends on ADC_MAX_CHANNELS >= 4
+        config ADC_CH3_MIN
+            int "Channel 3 minimum value"
+            range 0 4095
+            default 0
+            help
+                Minimum ADC value for channel 3 (0-4095)
+
+        config ADC_CH3_MAX
+            int "Channel 3 maximum value"
+            range 0 4095
+            default 4095
+            help
+                Maximum ADC value for channel 3 (0-4095)
+    endmenu
+
+    menu "Channel 4 Configuration"
+        depends on ADC_MAX_CHANNELS >= 5
+        config ADC_CH4_MIN
+            int "Channel 4 minimum value"
+            range 0 4095
+            default 0
+            help
+                Minimum ADC value for channel 4 (0-4095)
+
+        config ADC_CH4_MAX
+            int "Channel 4 maximum value"
+            range 0 4095
+            default 4095
+            help
+                Maximum ADC value for channel 4 (0-4095)
+    endmenu
+
+    menu "Channel 5 Configuration"
+        depends on ADC_MAX_CHANNELS >= 6
+        config ADC_CH5_MIN
+            int "Channel 5 minimum value"
+            range 0 4095
+            default 0
+            help
+                Minimum ADC value for channel 5 (0-4095)
+
+        config ADC_CH5_MAX
+            int "Channel 5 maximum value"
+            range 0 4095
+            default 4095
+            help
+                Maximum ADC value for channel 5 (0-4095)
+    endmenu
+
+    config ADC_HYSTERESIS
+        int "ADC Hysteresis value"
+        range 1 1000
+        default 40
+        help
+            Hysteresis value for all channels
+
+    config ADC_RUNNING_AVG_SIZE
+        int "Running average buffer size"
+        range 2 100
+        default 10
+        help
+            Size of the running average buffer for smoothing
+
+endmenu

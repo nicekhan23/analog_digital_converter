@@ -1766,6 +1766,43 @@ CONFIG_VFS_INITIALIZE_DEV_NULL=y
 CONFIG_WL_SECTOR_SIZE_4096=y
 CONFIG_WL_SECTOR_SIZE=4096
 # end of Wear Levelling
+
+#
+# ADC Multi-Channel Configuration
+#
+CONFIG_ADC_MAX_CHANNELS=4
+
+#
+# Channel 0 Configuration
+#
+CONFIG_ADC_CH0_MIN=0
+CONFIG_ADC_CH0_MAX=4095
+# end of Channel 0 Configuration
+
+#
+# Channel 1 Configuration
+#
+CONFIG_ADC_CH1_MIN=0
+CONFIG_ADC_CH1_MAX=4095
+# end of Channel 1 Configuration
+
+#
+# Channel 2 Configuration
+#
+CONFIG_ADC_CH2_MIN=0
+CONFIG_ADC_CH2_MAX=4095
+# end of Channel 2 Configuration
+
+#
+# Channel 3 Configuration
+#
+CONFIG_ADC_CH3_MIN=0
+CONFIG_ADC_CH3_MAX=4095
+# end of Channel 3 Configuration
+
+CONFIG_ADC_HYSTERESIS=40
+CONFIG_ADC_RUNNING_AVG_SIZE=10
+# end of ADC Multi-Channel Configuration
 # end of Component config
 
 # CONFIG_IDF_EXPERIMENTAL_FEATURES is not set
