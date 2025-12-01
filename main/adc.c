@@ -213,7 +213,7 @@ BaseType_t adc_init() {
 
 struct {
 	struct arg_lit *help;
-    struct arg_int *channel                 // press ctrl+space after i expected result is arg_int
+    struct arg_int *channel;                 // press ctrl+space after i expected result is arg_int
 	struct arg_end *end;
 } args;
 
